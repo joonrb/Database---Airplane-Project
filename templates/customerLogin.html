@@ -1,0 +1,22 @@
+
+<html>
+    <head>
+        <style type="text/css">
+            p{
+                color: red
+            }
+            
+        </style>
+        <h1>Customer Login Page</h1>
+        <br>
+        <form action="/customerLoginAuth" method="POST">
+            <input type="text" name="email" placeholder="email" required /> <br>
+            <input type="password" name="password" placeholder="password" required /> <br>
+            <input type="submit" value = Login />
+            {% if error %}
+               <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        </form>
+        <a href="/">Return</a>
+    </head>
+</html>

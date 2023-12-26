@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Staff Home Page</h1>
+        <a href="/staffAddCreatePage">Staff Administration Page</a> <br>
+        <a href="/staffViewPage">Staff View Data Page</a>
+    </head>
+    <body>
+
+    <style type="text/css">
+        table, th, td{
+            border: 1px solid black;
+        }
+        div#div1{
+            float: center;
+            margin-left: auto;
+        }
+    </style>
+    <h2>Current Flights</h2>
+    <table>
+        <thead>
+            <th>Airline Name</th>
+            <th>Flight Number</th>
+            <th>Departure Date</th>
+            <th>Departure Time</th>
+            <th>Arrival Date</th>
+            <th>Arrival Time</th>
+            <th>Leaving From</th>
+            <th>Arriving At</th>
+            <th>Base Price</th>
+            <th>Flight Status</th>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{item['AirlineName']}}</td>
+                    <td>{{item['flightNum']}}</td>
+                    <td>{{item['departDate']}}</td>
+                    <td>{{item['departTime']}}</td>
+                    <td>{{item['arrivalDate']}}</td>
+                    <td>{{item['arrivalTime']}}</td>
+                    <td>{{item['departAirportID']}}</td>
+                    <td>{{item['arrivalAirportID']}}</td>
+                    <td>{{item['basePrice']}}</td>
+                    <td>{{item['flightStatus']}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if dateRangeBeginning %}
+    <p class="notification"><strong>Date Range From:</strong> {{dateRangeBeginning}}</p>
+    {% endif %}  
+    {% if dateRangeEnd %}
+    <p class="notification"><strong> ~ </strong> {{dateRangeEnd}}</p>
+    {% endif %}  
+    <h4>Search Flights by Date Range</h4>
+
+    <form action="/staffViewFlightByDate" method="POST">
+    <t1>Starting From: </t1> <br>
+    <input type="date" name = "searchByDateBeginning" required/> </br>
+    <t1>Search Until: </t1><br>
+    <input type="date" name = "searchByDateEnd" required/> </br>
+    <input type="submit" value = Search />
+    </form>
+    <br>
+    <div id = "div1">
+    <h4>Search Flights by Airports</h4>
+    <form action="/staffViewFlightByAirport" method="POST">
+        <t1>Departing Airport ID </t1> <br>
+        <input type="text" name = "searchByDepartAirportID" required/> </br>
+        <t1>Arriving Airport ID </t1><br>
+        <input type="text" name = "searchByArrivalAirportID" required/> </br>
+        <input type="submit" value = Search />
+        </form>
+    </div>
+        <br>
+
+    <h4>View Customers of a Flight</h4>
+    <form action="/staffViewCustomers" method="POST">
+        <input type="text" name = "flightNum" placeholder="Flight Number" required/> </br>
+        <input type="submit" value = View />
+        {% if viewError %}
+        <p class="error"><strong>Error:</strong> {{viewError}}</p>
+        {% endif %}
+        </form>
+        <br>
+    <table>
+        <thead>
+            <th>Flight Number</th>
+            <th>Customer Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </thead>
+        <tbody>
+            {% for item in customerData %}
+            <tr>
+                <td>{{item['flightNum']}}</td>
+                <td>{{item['email']}}</td>
+                <td>{{item['firstName']}}</td>
+                <td>{{item['lastName']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <h4>Change Flight Status</h4>
+        <form action="/staffChangeFlightStatus" method="POST">
+            <input type="text" name = "flightNum" placeholder="Flight Number" required/> </br>
+            <select name="flightStatus">
+                <option value="on time">On Time</option>
+                <option value="delayed">Delayed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            <input type="submit" value = Update />
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+            {% if notification %}
+                <p class="notification"> {{notification}}</p>
+            {% endif %} 
+        </form>
+        <br>
+        <a href="/staffLogout">Logout</a>
+    </body>
+</html>

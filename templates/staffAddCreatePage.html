@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Staff Administration Page</h1>
+        <a href="/home">Return to Staff Home Page</a>
+    </head>
+    <body>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+         <h3>Create Flight</h3>
+         <form action="/createFlights" method="POST">
+            <input type="text" name = "flightNum" placeholder="Flight Number" required/> </br>
+            <input type="date" name = "departDate" required/></br>
+            <input type="time" name = "departTime" required/></br>
+            <input type="date" name = "arrivalDate" required/></br>
+            <input type="time" name = "arrivalTime" required></br>
+            <input type="text" name = "departAirportID" placeholder="Departing Airport ID" required/></br>
+            <input type="text" name = "arrivalAirportID" placeholder="Arriving Airport ID" required></br>
+            <input type="text" name = "basePrice" placeholder="Base Price" required></br>
+            <select name="flightStatus">
+                <option value="on time">On Time</option>
+                <option value="delayed">Delayed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <br>
+            <input type="submit" value = Register />
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+            {% if createFlightNotification %}
+                <p class="notification"> {{createFlightNotification}}</p>
+            {% endif %} 
+         </form>
+         <br>
+         <h3>Add Airplane to System</h3>
+         <form action="/addAirplane" method="POST">
+            <input type="text" name = "planeID" placeholder="Airplane ID" required/> </br>
+            <input type="text" name = "numSeat" placeholder="Number of Seats" required></br>
+            <input type="text" name = "manufacutre" placeholder="Manufacturer" required></br>
+            <input type="text" name = "modelNum" placeholder="Model Number"></br>
+            <input type="text" name = "age" placeholder="Age of Airplane"></br>
+            <p1>Manufacture Date</p1>
+            <input type="date" name = "manuDate"></br>
+            <input type="submit" value = Register />
+            {% if airplaneAdditionError %}
+                <p class="error"><strong>Error:</strong> {{airplaneAdditionError}}</p>
+            {% endif %}
+            {% if airplaneAdditionNotification %}
+            <p class="notification"> {{airplaneAdditionNotification}}</p>
+             {% endif %} 
+        </form>
+        <br>
+        <h3>Add Airport to System</h3>
+        <form action="/addAirport" method="POST">
+            <input type="text" name = "airportID" placeholder="Airport ID" required/> </br>
+            <input type="text" name = "name" placeholder="Airport Name" required/></br>
+            <input type="text" name = "city" placeholder="Airport Base City" required></br>
+            <input type="text" name = "country" placeholder="Airport Base Country" required></br>
+            <input type="text" name = "numTerminal" placeholder="Number of Terminals"></br>
+            <select name="type">
+                <option value="domestic">Domestic</option>
+                <option value="international">International</option>
+            </select>
+            <input type="submit" value = Register />
+            {% if airportAdditionError %}
+                <p class="error"><strong>Error:</strong> {{airportAdditionError}}</p>
+            {% endif %}
+            {% if airportAdditionNotification %}
+            <p class="notification"> {{airportAdditionNotification}}</p>
+            {% endif %} 
+        </form>
+
+        <h3>Schedule Maintenance</h3>       
+        <form action="/scheduleMaintenance" method="POST">
+            <input type="text" name = "planeID" placeholder="Airplane ID" required/> </br>
+            <input type="date" name = "startDate" required/></br>
+            <input type="time" name = "startTime" required/></br>
+            <input type="date" name = "endDate" required/></br>
+            <input type="time" name = "endTime" required></br>
+            <input type="submit" value = Register />
+            {% if maintenanceError %}
+                <p class="error"><strong>Error:</strong> {{maintenanceError}}</p>
+            {% endif %}
+            {% if maintenanceNotification %}
+                <p class="notification"> {{maintenanceNotification}}</p>
+            {% endif %} 
+         </form> 
+    </body>
+</html>

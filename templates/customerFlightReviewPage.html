@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Customer Review Page</h1>
+        <a href="/customerViewPage">Return to Customer Page</a>
+    </head>
+    <body>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+
+        <form action="/postCustomerReview" method="POST">
+            <h3>Make a Review on Past Flights</h3>
+            <input type="text" name = "flightNum" placeholder="Flight Number" required/> </br>
+            <input type="text" name = "rating" placeholder="Rating" required/> </br>
+            <input type="text" name = "customerComment" placeholder="Comment" required/> </br>
+            <input type="submit" value = Post />
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}    
+        </form>
+        
+        
+        <br>
+        <h3>Past Reviews on Past Flights</h3>
+        <br>
+        <table>
+            <th>Flight Number</th>
+            <th>Rating</th>
+            <th>Comment</th>
+        
+        {% for item in posts %}
+            <tr>
+                <td>{{item['flightNum']}}</td>
+                <td>{{item['rating']}}</td>
+                <td>{{item['customerComment']}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h3>Track Spending</h3>
+        <form action="/viewSpending" method="POST">
+            <h5>Search by Range of Dates</h5> 
+            <p1>Beginning Date</p1> <br>
+            <input type="date" name = "beginDate" required/> </br>
+            <p1>Ending Date</p1> <br>
+            <input type="date" name = "endDate" required/> </br>
+            <input type="submit" value = View />
+        </form>
+        {% if totalSpent %}
+            <p class="error"><strong>In the past {{length}} months, you spent:</strong> {{totalSpent}}</p>
+        {% endif %}   
+        <br>
+        <table>
+            <thead>
+                <th>Month</th>
+                <th>Total Spent</th>
+            </thead>
+            <tbody>
+                {% for index in range(length) %}
+                    <tr>
+                        <td>{{ monthData[index] }}</td>
+                        <td>{{ monthsSpent[index] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </body>
+</html>

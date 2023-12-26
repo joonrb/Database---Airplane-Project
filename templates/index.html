@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AirplaneProjectHomePage</title>
+    <h1>Welcome to Project Airplane Home Page</h1><br>
+</head>
+
+<body>
+    <a href="/customerLogin">Customer Login</a>
+    <a href="/staffLogin">Staff Login</a>
+    <br>
+    <a href="/customerRegister">Customer Register</a>
+    <a href="/staffRegister">Staff Register</a>
+
+    <h1>Search Flights</h1> </form><br>
+    <form action="/searchByAirports" method="POST">
+        <h3>Search by Airports</h3>
+        <input type="text" name = "departAirportID" placeholder="Departing Airport ID" required/> </br>
+        <input type="text" name = "arrivalAirportID" placeholder="Arriving Airport ID" required/> </br>
+        <input type="submit" value = View>
+    </form>
+    <form action="/searchByDate" method="POST">
+
+        <h3>Search by Departure Date</h3>
+        <input type="date" name = "departDate" placeholder="Departure Date" required/> </br>
+        <input type="submit" value = View>
+    </form>
+
+    <style type="text/css">
+        table, th, td{
+            border: 1px solid black;
+        }
+    </style>
+</br>
+    <table>
+        <thead>
+            <th>Airline Name</th>
+            <th>Flight Number</th>
+            <th>Departure Date</th>
+            <th>Departure Time</th>
+            <th>Arrival Date</th>
+            <th>Arrival Time</th>
+            <th>Leaving From</th>
+            <th>Arriving At</th>
+            <th>Base Price</th>
+            <th>Flight Status</th>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{item['AirlineName']}}</td>
+                    <td>{{item['flightNum']}}</td>
+                    <td>{{item['departDate']}}</td>
+                    <td>{{item['departTime']}}</td>
+                    <td>{{item['arrivalDate']}}</td>
+                    <td>{{item['arrivalTime']}}</td>
+                    <td>{{item['departAirportID']}}</td>
+                    <td>{{item['arrivalAirportID']}}</td>
+                    <td>{{item['basePrice']}}</td>
+                    <td>{{item['flightStatus']}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

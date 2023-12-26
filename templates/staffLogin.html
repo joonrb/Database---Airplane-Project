@@ -1,0 +1,16 @@
+
+<html>
+    <head>
+        <h1>Staff Login Page</h1>
+        <br>
+        <form action="/staffLoginAuth" method="POST">
+            <input type="text" name="username" placeholder="username" required /> <br>
+            <input type="password" name="password" placeholder="password" required /> <br>
+            <input type="submit" value = Login />
+            {% if error %}
+               <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        </form>
+        <a href="/">Return</a>
+    </head>
+</html>

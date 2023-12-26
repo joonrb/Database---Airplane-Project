@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Staff View Data Page</h1>
+        <a href="/home">Return to Staff Home Page</a>
+    </head>
+    <body>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+        <h3>View Flight Ratings</h3>
+        <form action="/staffViewFlightRatings" method="POST">
+            <input type="text" name = "flightNum" placeholder="Flight Number" required/> </br>
+            <input type="submit" value = View />
+            {% if viewRatingError %}
+            <p class="error"><strong>Error:</strong> {{viewRatingError}}</p>
+            {% endif %}
+            </form>
+            <br>
+        <table>
+            <thead>
+                <th>Flight Number</th>
+                <th>Customer Email</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </thead>
+            <tbody>
+                {% for item in reviewData %}
+                <tr>
+                    <td>{{item['flightNum']}}</td>
+                    <td>{{item['email']}}</td>
+                    <td>{{item['rating']}}</td>
+                    <td>{{item['customerComment']}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h5 class="avgRating"><strong>Avg Rating:</strong> {{avgRating}}</h5>
+        <h3>View Customer of the Year</h3>
+        <form action="/viewCotY" method="POST">
+            <input type="submit" value = View />
+            {% if CotY %}
+            <p class="CotY"><strong>CotY is: </strong> {{CotY['email']}} {{CotY['firstName']}} {{CotY['lastName']}}</p>
+            {% endif %}
+        </form>
+        <br>
+        <h3>View All Flights of a Customer</h3>
+        <form action="/viewCustomerFlight" method="POST">
+            <input type="text" name = "email" placeholder="Customer Email" required/> </br>
+            <input type="submit" value = View />
+            {% if email %}
+            <p class="email"><strong>Customer Email:</strong> {{email}}</p>
+            {% endif %}
+        </form>
+        <br>
+        <table>
+            <thead>
+                <th>Flight Number</th>
+            </thead>
+            <tbody>
+                {% for item in flightData %}
+                <tr>
+                    <td>{{item['flightNum']}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>View Total Revenue</h3>
+        <form action="/viewRevenue" method="POST">
+            <select name="type">
+                <option value="month">Last Month</option>
+                <option value="year">Last Year</option>
+            </select>
+            <input type="submit" value = View />
+            {% if yearRevenue %}
+                <p class="error"><strong>Revenue of Last Year:</strong> {{yearRevenue}}</p>
+            {% endif %}
+            {% if monthRevenue %}
+                <p class="error"><strong>Revenue of Last Month:</strong> {{monthRevenue}}</p>
+            {% endif %}
+        </form>
+    </body>
+</html>
